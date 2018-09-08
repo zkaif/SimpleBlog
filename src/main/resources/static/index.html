@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon"/>
+    <meta name="robots" content="all">
+    <meta name="author" content="Kaifan,z@zhoukaifan.com">
+    <meta name="copyright" content="Kaifan">
+    <meta name="keywords" content="Kaifan,博客,后端,JAVA,HTML,J2EE,JAVA WEB,JS,C/C++,大学,程序员">
+    <meta name="description" content="Kaifan的个人博客，用于记录个人的笔记并与大家分享，邮箱：z@zhoukaifan.com，也可进入网站留言。个人简介：全栈开发，主学后端，没事瞎折腾。这个网站是啥？一个无聊的人，做的一个无聊的网站，写一些无聊的内容。">
+
+    <title>Kaifan & Blog</title>
+
+    <!-- CSS  -->
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="layer/layer.js"></script>
+</head>
+<body>
+<ul id="typeMenu" class="dropdown-content"></ul>
+<ul id="dateMenu" class="dropdown-content"></ul>
+<nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="index.html" class="brand-logo"><b>Kaifan</b>&Blog</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="index.html">主页</a></li>
+            <li><a href="contactMe.html">留言</a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="typeMenu">文章分类<i class="material-icons right">arrow_drop_down</i></a>
+            </li>
+            <li><a class="dropdown-button" href="#!" data-activates="dateMenu">历史文章<i class="material-icons right">arrow_drop_down</i></a>
+            </li>
+        </ul>
+
+        <ul id="nav-mobile" class="collapsible side-nav" data-collapsible="accordion">
+            <li><a href="index.html">主页</a></li>
+            <li><a href="contactMe.html">留言</a></li>
+            <li>
+                <a class="collapsible-header" style="padding-left: 30px">文章分类</a>
+                <div class="collapsible-body">
+                    <ul id="typeMenuCollapsible">
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header" style="padding-left: 30px">历史文章</a>
+                <div class="collapsible-body">
+                    <ul id="dateMenuCollapsible">
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br><br>
+            <h1 class="header center grey-text text-lighten-3 ">Kaifan & Blog</h1>
+            <div class="row center">
+                <h5 class="header col s12 light white-text">编程、学习、娱乐、捣蛋，生命在于折腾。</h5>
+            </div>
+            <div class="row center">
+                <a href="javascript:getBio()" id="download-button" class="btn-large waves-effect waves-light grey lighten-1">获取简历</a>
+            </div>
+            <br><br>
+
+        </div>
+    </div>
+    <div class="parallax"><img src="image/office.jpg" alt="Unsplashed background img 1"></div>
+</div>
+
+<div class="container">
+    <div class="section">
+        <div id="filtrate">
+
+        </div>
+        <!--   Icon Section   -->
+        <div id="content">
+
+        </div>
+        <div class="center">
+            <ul class="pagination" id="pageIndex">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer  grey lighten-3 ">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="black-text">Bio</h5>
+                <p class="black-text text-lighten-4">
+                    全栈开发，主学后端，没事瞎折腾。<br />
+                    联系方式：请看右边———><br />
+                    这是啥？一个无聊的人，做的一个无聊的网站，写一些无聊的内容。
+                </p>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="black-text">Contact me</h5>
+                <ul>
+                    <li><a class="black-text" href="mailto:z@zhoukaifan.com">E-mail</a></li>
+                    <li><a class="black-text" href="contactMe.html" target="_blank">在线留言</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="black-text">Follow me</h5>
+                <ul>
+                    <li><a class="black-text" href="https://github.com/zkaif" target="_blank">Github</a></li>
+                    <li><a class="black-text" href="https://www.zhihu.com/people/chen-kai-17-56/activities" target="_blank">知乎</a></li>
+                    <li><a class="black-text" href="http://www.linkedin.com/in/%E5%87%AF%E5%B8%86-%E5%91%A8-5a19b1142/" target="_blank">领英</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container black-text">
+            <div>© 2017 <a class="grey-text text-darken-2" href="#!">zhoukaifan.com</a></div>
+            <div><span>ICP证：京ICP备17019906号</span></div>
+        </div>
+    </div>
+</footer>
+<!--  Scripts-->
+<script src="js/materialize.js"></script>
+<script src="js/home.js"></script>
+<script src="js/init.js"></script>
+
+</body>
+</html>
+
+

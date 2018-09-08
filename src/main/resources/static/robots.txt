@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /layer/
+Disallow: /image/
+Disallow: /js/
+
+Sitemap: https://www.zhoukaifan.com/sitemaps.xml
+Sitemap: https://www.zhoukaifan.com/sitemapsstatic.xml
