@@ -109,6 +109,9 @@ function getDate(page) {
                 if (i % listSize == 0) {
                     html += '<div class="row">';
                 }
+                if (readCount[data[i].id]==null){
+                    readCount[data[i].id] = 0;
+                }
                 html += '<div class="col s12 m4"><div class="card">';
                 html += '   <div class="card-image waves-effect waves-block waves-light"><img class="activator" src="' + data[i].img + '"></div>';
                 html += '   <div class="card-content"><div class="row">';

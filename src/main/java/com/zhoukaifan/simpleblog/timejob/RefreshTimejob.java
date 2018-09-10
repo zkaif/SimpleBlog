@@ -12,14 +12,18 @@ import com.zhoukaifan.simpleblog.vo.GithubPushVo;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -108,15 +112,18 @@ public class RefreshTimejob {
                 return;
             }
             pullGit();
+            Set<String> files = new HashSet<>();
+            files.addAll(refreshVo.getAdded());
             if (refreshVo.getAdded() != null && !refreshVo.getAdded().isEmpty()) {
-                addAndUpdateFiles(refreshVo.getAdded());
+                files.addAll(refreshVo.getAdded());
             }
             if (refreshVo.getModified() != null && !refreshVo.getModified().isEmpty()) {
-                addAndUpdateFiles(refreshVo.getModified());
+                files.addAll(refreshVo.getModified());
             }
             if (refreshVo.getRemoved() != null && !refreshVo.getRemoved().isEmpty()) {
-                delFiles(refreshVo.getRemoved());
+                files.addAll(refreshVo.getRemoved());
             }
+            updateFiles(files);
         }
     }
 
@@ -241,7 +248,9 @@ public class RefreshTimejob {
             } while (true);
             blogContent.setContent(content.toString());
             return blogContent;
-        } catch (Exception e) {
+        } catch (FileNotFoundException ef) {
+            return null;
+        }  catch (Exception e) {
             mailSendWorker.notifyByMail("文章发布错误",blogContent.toString()+"\n"+e.getMessage());
             return null;
         } finally {
@@ -267,39 +276,38 @@ public class RefreshTimejob {
         fileNameMap.put(blogContent.getId(), blogContent);
     }
     //==============增量刷新==============
-    private void addAndUpdateFiles(List<String> files){
+    private void updateFiles(Collection<String> files){
         for (String file : files){
             if (!isBlog(file)){
                 continue;
             }
             BlogContent blogContent = getBlogContent(file);
+            if (blogContent==null){
+                delFiles(file);
+            }
+            addAndUpdateFiles(blogContent);
+        }
+    }
+    private void addAndUpdateFiles(BlogContent blogContent){
             if(!checkoutBlog(blogContent)){
-                continue;
+                return;
             }
             if (StrogeUtils.fileNameMap.get(blogContent.getId())==null){
                 getBlogType(blogContent.getId()).addCount();
                 getDateType(blogContent.getId()).addCount();
             }
             addBlogContent(blogContent,StrogeUtils.contentMap,StrogeUtils.fileNameMap);
-        }
     }
-    private void delFiles(List<String> files){
-        for (String file : files){
-            if (!isBlog(file)){
-                continue;
-            }
+    private void delFiles(String file){
             BlogContent blogContent = StrogeUtils.fileNameMap.get(getBlogIdByPath(file));
             if(blogContent==null){
-                continue;
+                return;
             }
             StrogeUtils.fileNameMap.remove(blogContent.getId());
             StrogeUtils.contentMap.remove(blogContent.getId());
-            StrogeUtils.commentMap.remove(blogContent.getId());
-//            StrogeUtils.readerCountMap.remove(blogContent.getId());
-
+//            StrogeUtils.commentMap.remove(blogContent.getId());
             getBlogType(blogContent.getGroup()).subCount();
             getDateType(blogContent.getDateStr()).subCount();
-        }
     }
     private boolean isBlog(String path){
         if (blogName.equals(path.split("/")[0])){
