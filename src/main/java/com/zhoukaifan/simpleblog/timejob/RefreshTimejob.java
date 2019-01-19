@@ -27,6 +27,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -37,6 +39,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RefreshTimejob {
+
+    private static final Logger log = LoggerFactory.getLogger(RefreshTimejob.class);
 
     @Value("${zhoukaifan.simpleblog.gitPath}")
     private String gitPath;
@@ -82,6 +86,7 @@ public class RefreshTimejob {
             return;
         }
         File[] files = file.listFiles();
+        log.info(file.toString());
         for (File file1 : files) {
             init(file1, path + "/" + file1.getName());
         }
