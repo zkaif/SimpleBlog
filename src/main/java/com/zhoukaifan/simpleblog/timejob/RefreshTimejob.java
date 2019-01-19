@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -87,6 +88,7 @@ public class RefreshTimejob {
         }
         File[] files = file.listFiles();
         log.info(file.toString());
+        log.info("编码测试，File[] files {}",Arrays.toString(files));
         for (File file1 : files) {
             init(file1, path + "/" + file1.getName());
         }

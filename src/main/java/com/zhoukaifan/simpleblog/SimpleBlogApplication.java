@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class SimpleBlogApplication {
     public static void main(String[] args){
+        System.setProperty("file.encoding","UTF-8");
         SpringApplication.run(SimpleBlogApplication.class,args);
     }
 
